@@ -1,17 +1,20 @@
 package etl
 
 import (
+	processor2 "etl-poc/etl/processor"
+	reader2 "etl-poc/etl/reader"
+	writer2 "etl-poc/etl/writer"
 	"fmt"
 	"sync"
 )
 
 type Runner struct {
-	reader    Reader
-	processor Processor
-	writer    Writer
+	reader    reader2.Reader
+	processor processor2.Processor
+	writer    writer2.Writer
 }
 
-func NewRunner(reader Reader, processor Processor, writer Writer) *Runner {
+func NewRunner(reader reader2.Reader, processor processor2.Processor, writer writer2.Writer) *Runner {
 	return &Runner{reader: reader, processor: processor, writer: writer}
 }
 

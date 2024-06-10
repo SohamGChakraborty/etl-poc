@@ -1,14 +1,9 @@
-package etl
+package writer
 
 import (
 	"encoding/csv"
 	"os"
 )
-
-type Writer interface {
-	Write(batch [][]string) error
-	Close() error
-}
 
 // writer writes data to a CSV file in batches.
 type writer struct {

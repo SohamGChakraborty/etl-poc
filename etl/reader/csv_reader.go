@@ -1,26 +1,22 @@
-package etl
+package reader
 
 import (
 	"encoding/csv"
 	"errors"
+	"etl-poc/etl/validator"
 	"io"
 	"os"
 )
-
-type Reader interface {
-	Next() ([][]string, error)
-	Close() error
-}
 
 // reader reads data from a CSV file in batches.
 type reader struct {
 	file       *os.File
 	csvReader  *csv.Reader
 	batchSize  int
-	validators []Validator
+	validators []validator.Validator
 }
 
-func NewCsvReader(filename string, batchSize int, validators []Validator) (Reader, error) {
+func NewCsvReader(filename string, batchSize int, validators []validator.Validator) (Reader, error) {
 	file, err := os.Open(filename)
 	if err != nil {
 		return nil, err

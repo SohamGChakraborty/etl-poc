@@ -1,11 +1,7 @@
-package etl
+package processor
 
 // processor processes data in batches.
 type processor struct{}
-
-type Processor interface {
-	Process(batch [][]string) ([][]string, error)
-}
 
 func NewProcessor() Processor {
 	return &processor{}

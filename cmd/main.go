@@ -2,6 +2,10 @@ package main
 
 import (
 	"etl-poc/etl"
+	"etl-poc/etl/processor"
+	"etl-poc/etl/reader"
+	"etl-poc/etl/validator"
+	"etl-poc/etl/writer"
 	"fmt"
 	"time"
 )
@@ -25,21 +29,21 @@ func main() {
 	start := time.Now()
 	const batchSize = 1000
 
-	validators := []etl.Validator{
+	validators := []validator.Validator{
 		&FieldNotEmptyValidator{},
 		&LengthValidator{},
 	}
 
-	reader, err := etl.NewCsvReader("data.csv", batchSize, validators)
+	reader, err := reader.NewCsvReader("data.csv", batchSize, validators)
 	if err != nil {
 		fmt.Println("Error creating reader:", err)
 		return
 	}
 	defer reader.Close()
 
-	processor := etl.NewProcessor()
+	processor := processor.NewProcessor()
 
-	writer, err := etl.NewCsvWriter("out.csv")
+	writer, err := writer.NewCsvWriter("out.csv")
 	if err != nil {
 		fmt.Println("Error creating writer:", err)
 		return
